@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Col, Container, Pagination, Row } from "react-bootstrap";
-import { createHeroForm, heroesSlice, IHero, selectDisplayHeroes, selectHeroes } from './heroesSlice';
+import { createHeroForm, heroesSlice, IHero, selectActivePage, selectDisplayHeroes, selectHeroes } from './heroesSlice';
 import { sagaActions } from "./sagaActions";
 import { HeroFormComponent } from "./heroForm";
 import { NavLink } from "react-router-dom";
@@ -14,6 +14,7 @@ export function HeroesComponent() {
   const dispatch = useDispatch();
   var [active, setActive] = useState(1);
   let isCreateHeroFormVisible = useSelector(createHeroForm);
+  const activePage = useSelector(selectActivePage);
 
   var pages = [];
   const countPerPage = 5;
@@ -25,8 +26,6 @@ export function HeroesComponent() {
 
   var lastElem = active * countPerPage;
   var firstElem = lastElem - countPerPage;
-
-  console.log("first", totalHeroes.slice(firstElem, lastElem));
 
   for (let number = 1; number <= Math.floor(heroes.length/countPerPage) + 1; number++) {
     pages.push(
@@ -42,13 +41,14 @@ export function HeroesComponent() {
 
   useEffect(() => {
     dispatch(heroesSlice.actions.hideEditHeroForm());
+    pagination(activePage);
   },[])
 
   function pagination(number: number) {
     lastElem = number * countPerPage;
     firstElem = lastElem - countPerPage;
     setActive(number);
-    dispatch(heroesSlice.actions.setDisplayHeroes({firstElem, lastElem}));
+    dispatch(heroesSlice.actions.setDisplayHeroes({firstElem, lastElem, number}));
   }
 
   return (<Container className="heroes-list my-2 p-2">
@@ -62,7 +62,7 @@ export function HeroesComponent() {
           <Card>
             <h3 className="text-center">{ item.nickname }</h3>
               <Card.Body>
-              {item.images ? <img style={{maxWidth: 100}} src={`http://localhost:5000/${item.images[0]}`} alt="" /> : null}
+              {item.images.length > 0 ? <img style={{maxWidth: 100}} src={`http://localhost:5000/${item.images[0]}`} alt="" /> : null}
               </Card.Body>
           </Card>
           </NavLink>

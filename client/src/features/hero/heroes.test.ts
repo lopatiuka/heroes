@@ -1,5 +1,5 @@
 import { heroesSlice } from './heroesSlice';
-import reducer, { IHero, IImage } from './heroesSlice';
+import reducer, { IHero } from './heroesSlice';
 import { HeroService } from './services';
 
 let service = new HeroService();
@@ -17,6 +17,7 @@ test('heroes should be fetched', () => {
         fail: false,
         failMessage: "",
         success: false, 
+        activePage: 1
     }
 
     const heroes = [
@@ -59,6 +60,7 @@ test('heroes should be incremented', () => {
         fail: false,
         failMessage: "",
         success: false, 
+        activePage: 1
     }
 
     const newState = reducer(previousState,heroesSlice.actions.createHero({nickname: "Test",
@@ -80,6 +82,7 @@ test('heroes should be decremented', () => {
                 origin_description: "Test",
                 catch_phrase: "Test",
                 superpowers: "Test",
+                images: ["Test"]
             }, 
             { 
                 id: 2,
@@ -88,6 +91,7 @@ test('heroes should be decremented', () => {
                 origin_description: "Test2",
                 catch_phrase: "Test2",
                 superpowers: "Test2",
+                images: ["Test"]
             }, 
             { 
                 id: 3,
@@ -96,6 +100,7 @@ test('heroes should be decremented', () => {
                 origin_description: "Test3",
                 catch_phrase: "Test3",
                 superpowers: "Test3",
+                images: ["Test"]
             }, 
         ],
         hero: [] as IHero[],
@@ -106,6 +111,7 @@ test('heroes should be decremented', () => {
         fail: false,
         failMessage: "",
         success: false, 
+        activePage: 1
     }
 
     const newState = reducer(previousState,heroesSlice.actions.deleteHero({nickname: "Test",
@@ -128,6 +134,7 @@ test('hero should be updated', () => {
                 origin_description: "Test",
                 catch_phrase: "Test",
                 superpowers: "Test",
+                images: ["Test"]
             }, 
             { 
                 id: 2,
@@ -136,6 +143,7 @@ test('hero should be updated', () => {
                 origin_description: "Test2",
                 catch_phrase: "Test2",
                 superpowers: "Test2",
+                images: ["Test"]
             }, 
             { 
                 id: 3,
@@ -144,6 +152,7 @@ test('hero should be updated', () => {
                 origin_description: "Test3",
                 catch_phrase: "Test3",
                 superpowers: "Test3",
+                images: ["Test"]
             }, 
         ],
         hero: [] as IHero[],
@@ -154,6 +163,7 @@ test('hero should be updated', () => {
         fail: false,
         failMessage: "",
         success: false, 
+        activePage: 1
     }
 
     const newState = reducer(previousState,heroesSlice.actions.editHero({nickname: "Test",

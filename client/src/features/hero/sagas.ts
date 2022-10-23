@@ -10,8 +10,17 @@ const validation = (hero: Object) => {
     let arr = Object.values(hero);
     for ( let i in arr )
     {
-        if(arr[i].length === 0)
-        return false;
+        let item = arr[i];
+
+        if(typeof item === "string") {
+            debugger;
+            item = arr[i].trim();
+        }
+        debugger;
+        if(item.length === 0) {
+            alert("All fields are required");
+            return false;
+        }
     }
     return true;
 }
@@ -57,9 +66,6 @@ export function* createHero(action: any): any {
             yield put(heroesSlice.actions.failed(e.message));
         }
     }
-    else {
-        alert("All fields required")
-    }
 }
 
 export function* editHero(action: any): any {
@@ -84,9 +90,6 @@ export function* editHero(action: any): any {
         } catch (e: any) {
             yield put(heroesSlice.actions.failed(e.message));
         }
-    }
-    else {
-        alert("All fields required");
     }
 }
 

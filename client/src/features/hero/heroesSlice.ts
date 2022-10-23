@@ -1,9 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { actionChannel } from 'redux-saga/effects';
-
-export interface IImage {
-  path: string
-}
 
 export interface IHero {
   id: number,
@@ -12,7 +7,7 @@ export interface IHero {
   origin_description: string,
   catch_phrase: string,
   superpowers: string,
-  images?: IImage[],
+  images: string[],
 }
 
 export const heroesSlice = createSlice({
@@ -28,6 +23,7 @@ export const heroesSlice = createSlice({
     fail: false,
     failMessage: "",
     success: false,
+    activePage: 1
   },
   reducers: {
 
@@ -87,6 +83,7 @@ export const heroesSlice = createSlice({
 
     setDisplayHeroes: (state, action) => {
       state.displayHeroes = state.heroes.filter((el, index) => index >= action.payload.firstElem && index < action.payload.lastElem);
+      state.activePage = action.payload.number;
     },
 
     showCreateHeroForm: (state) => {
@@ -125,6 +122,7 @@ export const heroesSlice = createSlice({
   }
 })
 export const initialState = (state: any) => state;
+export const selectActivePage = (state: any) => state.heroes.activePage;
 export const selectHeroes = (state: any) => state.heroes.heroes;
 export const selectDisplayHeroes = (state: any) => state.heroes.displayHeroes;
 export const selectHero = (state: any) => state.heroes.hero;

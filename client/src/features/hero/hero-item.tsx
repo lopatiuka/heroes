@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { NavLink, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { editHeroForm, editImages, heroesSlice, IImage, selectHero, selectHeroes, selectImages } from "./heroesSlice";
+import { editHeroForm, editImages, heroesSlice, selectHero, selectHeroes, selectImages } from "./heroesSlice";
 import { HeroFormComponent } from "./heroForm";
 import { sagaActions } from "./sagaActions";
 import Checkbox from '@mui/material/Checkbox';
@@ -44,7 +44,7 @@ export function HeroItem() {
                 <h4><span>Superpowers</span>: {hero.superpowers}</h4>
             </div>
                 <Grid container direction="column" spacing={2} justifyContent="center" alignItems="center">
-                {imagesState ?<Button onClick = {e => dispatch(heroesSlice.actions.showEditImages())}>Edit Images</Button> : null}
+                {imagesState.length ?<Button onClick = {e => dispatch(heroesSlice.actions.showEditImages())}>Edit Images</Button> : null}
                 <Grid container justifyContent="center" spacing={2} direction="row">
                 {imagesState ?
                 imagesState.map((item: string) => {

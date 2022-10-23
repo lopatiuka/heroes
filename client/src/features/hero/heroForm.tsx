@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TextField, Container, Grid, Button } from "@mui/material";
+import { TextField, Grid, Button } from "@mui/material";
 import { selectHero, heroesSlice } from "./heroesSlice";
 import Close from "@mui/icons-material/Close";
 
@@ -15,7 +15,6 @@ export function HeroFormComponent(props: any) {
     const images = props.images;
     const hero = useSelector(selectHero);
     let heroId = hero.id;
-    let arr: any[] = [];
     
     function handleImages(e: any): any {
         setNewImages(e.target.files);
@@ -53,11 +52,11 @@ export function HeroFormComponent(props: any) {
             <input hidden accept="image/*" multiple type="file" name="images" id="images"  onChange={ e => handleImages(e)}/>
             </Button>
             </Grid>
-            <Grid spacing={2} item>
+            <Grid item>
                 <Button variant="contained" color="success" 
                     onClick={ e =>
                      dispatch({type: props.actionType, 
-                        payload: {heroId, hero:{nickname, realName, originDescription, catchPhrase, superpowers }, images, newImages}})
+                        payload: {heroId, hero: { nickname, realName, originDescription, catchPhrase, superpowers }, images, newImages}})
                 }>Submit</Button>
 
                 <Button variant="contained" onClick={e => dispatch(heroesSlice.actions.hideEditHeroForm())}>Cancel</Button>
