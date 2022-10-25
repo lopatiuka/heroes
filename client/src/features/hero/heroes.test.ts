@@ -165,11 +165,15 @@ test('hero should be updated', () => {
         success: false, 
         activePage: 1
     }
+    const editedHero = {
+        id: 1,
+        nickname: "Test edited",
+        real_name: "Test edited",
+        origin_description: "Test edited",
+        catch_phrase: "Test edited",
+        superpowers: "Test edited" 
+    }
 
-    const newState = reducer(previousState,heroesSlice.actions.editHero({nickname: "Test",
-    real_name: "Test",
-    origin_description: "Test",
-    catch_phrase: "Test",
-    superpowers: "Test" }))
-    expect(newState.heroes.length).toBe(previousState.heroes.length + 1);
+    const newState = reducer(previousState,heroesSlice.actions.editHero(editedHero));
+    expect(newState.heroes[0]).toEqual(editedHero);
 })
